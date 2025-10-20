@@ -25,3 +25,11 @@ def listar_produtos():
             "quantidade": linha[3]
             })
     return {"produtos": lista}
+
+app.put("/estoque/{id_produto}")
+def atualizar_produto(id_produto: int, nova_quantidade: float):
+    produto = funcao.atualizar_produto(id_produto, nova_quantidade)
+    if produto:
+        return {"mensagem": f"prduto atualizado com sucesso"}
+    else:
+        return {"mensagem": f"Produto não encontrado!"}
