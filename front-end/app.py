@@ -6,7 +6,7 @@ API_URL = "http://127.0.0.1:8000"
 st.set_page_config(page_title="Gerenciador de Produtos e Estoque")
 st.title(" Gerenciador de Produtos e Estoque")
 
-menu = st.sidebar.radio("Navegação", ["Catalogo", "Adicionar produto", "Atualizar produto"])
+menu = st.sidebar.radio("Navegação", ["Catalogo", "Adicionar produto", "Atualizar quantidade do produto"])
 
 if menu == "Catalogo":
     st.subheader("Todos os produtos disponiveis")
@@ -24,7 +24,7 @@ elif menu == "Adicionar produto":
     st.subheader("➕ Adicionar produto")
     nome = st.text_input("nome do produto")
     categoria = st.text_input("cagoria do produto")
-    preco = st.number_input("preco do produto", min_value=0.0, step=1)
+    preco = st.number_input("preco do produto", min_value=0.0, step=0.01)
     quantidade = st.number_input("Quantidade do produto", min_value=0, step=1)
     if st.button("Salvar Produto"):
         dados = {
@@ -39,3 +39,17 @@ elif menu == "Adicionar produto":
         else:
             st.error("Erro ao adicionar o produto")
 
+elif menu == "Atualizar quantidade do produto":
+    st.subheader("Atualizar quantidade do produto")
+    id_produto = st.number_input("Digite o id do produto", min_value=1, step=1)
+    nova_quantidade = st.number_input("Digite a quantidade do produto", min_value=0, step=1)
+    if st.button("Atualizar produto"):
+        url_para_atualizar = f"{API_URL}/estoque/{int(id_produto)}"
+        dados = {              
+            "nova_quantidade": float(nova_quantidade)
+        }
+        response = requests.put(url_para_atualizar, params=dados)
+        if response.status_code == 200:
+            st.success("Produto atualizado com sucesso!")
+        else:
+            st.error("Erro ao atualizar o produto")
