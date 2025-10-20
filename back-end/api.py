@@ -13,23 +13,25 @@ def criar_produtos(nome: str, categoria: str, preco: float, quantidade: int):
     funcao.cadastrar_produtos(nome, categoria, preco, quantidade)
     return {"mensagem": "Produto adicionado com sucesso!"}
 
-app.get("/estoque")
+@app.get("/produtos")
 def listar_produtos():
     produtos = funcao.listar_produtos()
     lista = []
     for linha in produtos:
         lista.append({
-            "nome": linha[0],
-            "categoria": linha[1],
-            "preco": linha[2],
-            "quantidade": linha[3]
+            "id_produto": linha[0],
+            "nome": linha[1],
+            "categoria": linha[2],
+            "preco": linha[3],
+            "quantidade": linha[4]
             })
     return {"produtos": lista}
 
-app.put("/estoque/{id_produto}")
+@app.put("/estoque/{id_produto}")
 def atualizar_produto(id_produto: int, nova_quantidade: float):
     produto = funcao.atualizar_produto(id_produto, nova_quantidade)
     if produto:
         return {"mensagem": f"prduto atualizado com sucesso"}
     else:
         return {"mensagem": f"Produto não encontrado!"}
+    

@@ -21,7 +21,6 @@ def criar_tabela():
             cursor.close()
             conexao.close()
 
-
 def cadastrar_produtos(nome, categoria, preco, quantidade):
     conexao, cursor = conectar()
     if conexao:
