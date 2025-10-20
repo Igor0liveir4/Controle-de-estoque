@@ -12,3 +12,16 @@ def home():
 def criar_produtos(nome: str, categoria: str, preco: float, quantidade: int):
     funcao.cadastrar_produtos(nome, categoria, preco, quantidade)
     return {"mensagem": "Produto adicionado com sucesso!"}
+
+app.get("/estoque")
+def listar_produtos():
+    produtos = funcao.listar_produtos()
+    lista = []
+    for linha in produtos:
+        lista.append({
+            "nome": linha[0],
+            "categoria": linha[1],
+            "preco": linha[2],
+            "quantidade": linha[3]
+            })
+    return {"produtos": lista}
