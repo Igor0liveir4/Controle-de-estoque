@@ -31,7 +31,14 @@ def listar_produtos():
 def atualizar_produto(id_produto: int, nova_quantidade: float):
     produto = funcao.atualizar_produto(id_produto, nova_quantidade)
     if produto:
-        return {"mensagem": f"prduto atualizado com sucesso"}
+        return {"mensagem": f"produto atualizado com sucesso"}
     else:
         return {"mensagem": f"Produto não encontrado!"}
-    
+
+@app.delete("/produto")
+def deletar_produto(id_produto):
+    produto = funcao.deletar_porduto(id_produto)
+    if produto:
+        return {"mensagem": f"Produto removido com sucesso"}
+    else:
+        return {"mensagem": f"Não foi possivel remover esse produto!"}

@@ -6,7 +6,7 @@ API_URL = "http://127.0.0.1:8000"
 st.set_page_config(page_title="Gerenciador de Produtos e Estoque")
 st.title(" Gerenciador de Produtos e Estoque")
 
-menu = st.sidebar.radio("Navegação", ["Catalogo", "Adicionar produto", "Atualizar quantidade do produto"])
+menu = st.sidebar.radio("Navegação", ["Catalogo", "Adicionar produto", "Atualizar quantidade do produto", "Deletar produto"])
 
 if menu == "Catalogo":
     st.subheader("Todos os produtos disponiveis")
@@ -53,3 +53,13 @@ elif menu == "Atualizar quantidade do produto":
             st.success("Produto atualizado com sucesso!")
         else:
             st.error("Erro ao atualizar o produto")
+
+elif menu == "Deletar produto":
+    st.subheader("Deletar produto")
+    id_produto = st.number_input("digite o id que deseja remover", min_value=1, step=1)
+    if st.button("Deletar produto"):
+        response = requests.delete(f"{API_URL}/produto?id_produto={int(id_produto)}")
+        if response.status_code == 200:
+            st.success("Produto deletado com sucesso")
+        else:
+            st.error("Erro ao deletar o produto")
