@@ -14,18 +14,20 @@ def criar_tabela():
             )
             """)
             conexao.commit()
+            print("deu certo!")
         except Exception as erro:
             print(f'Erro ao criar a tabela {erro}')
         finally:
             cursor.close()
             conexao.close()
 
+
 def cadastrar_produtos(nome, categoria, preco, quantidade):
     conexao, cursor = conectar()
     if conexao:
         try:
             cursor.execute(
-                "INSERT INTO produtos (nome, categoria, preco, quantidade)",
+                "INSERT INTO produtos (nome, categoria, preco, quantidade) VALUES(%s, %s, %s, %s)",
                 (nome, categoria, preco, quantidade)
             )
             conexao.commit()
@@ -46,3 +48,19 @@ def listar_produtos():
         finally:
             cursor.close()
             conexao.close()
+
+def atualizar_produto(id_produto, nova_quantidade):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+                "UPDATE produtos SET quantidade = %s WHERE id = %s ",
+                (nova_quantidade, id_produto)
+            )
+            conexao.commit()
+        except Exception as erro:
+             print(f'Erro ao atuaizar quantidade do produto! {erro}')
+        finally:
+            cursor.close()
+            conexao.close()
+atualizar_produto( 1, 100)
