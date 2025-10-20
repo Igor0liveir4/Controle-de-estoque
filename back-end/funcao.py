@@ -79,4 +79,3 @@ def deletar_porduto(id_produto):
         finally:
             cursor.close()
             conexao.close()
-deletar_porduto(3)
