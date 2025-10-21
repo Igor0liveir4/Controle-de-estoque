@@ -57,6 +57,7 @@ def atualizar_produto(id_produto, nova_quantidade):
                 (nova_quantidade, id_produto)
             )
             conexao.commit()
+            
         except Exception as erro:
              print(f'Erro ao atuaizar quantidade do produto! {erro}')
         finally:
@@ -72,7 +73,6 @@ def deletar_porduto(id_produto):
                 (id_produto,)
             )
             conexao.commit()
-            cursor.fetchone()
         except Exception as erro:
              print(f'Erro ao tentar deletar produto! {erro}')
         finally:
